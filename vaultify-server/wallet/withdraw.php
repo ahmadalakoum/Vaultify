@@ -17,15 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode(['status' => 'error', 'message' => 'Amount is required']);
         exit();
     }
-
     $amount = floatval($data['amount']);
-
     // Ensure the amount is positive
     if ($amount <= 0) {
         echo json_encode(['status' => 'error', 'message' => 'Deposit amount must be greater than 0']);
         exit();
     }
-
     // Check if the user has a wallet
     $stmt = $pdo->prepare("SELECT * FROM wallets WHERE user_id = :userID");
     $stmt->bindParam(':userID', $userID);
@@ -36,24 +33,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode(['status' => 'error', 'message' => 'Wallet not found for user']);
         exit();
     }
-
-    // Update wallet balance by adding the deposit amount
-    $newBalance = $wallet['balance'] + $amount;
+    //check if the user's wallet has enough money to withdraw
+    if ($wallet['balance'] < $amount) {
+        echo json_encode(['status' => 'error', 'message' => 'Insufficient funds in wallet']);
+        exit();
+    }
+    // Update the wallet balance
+    $newBalance = $wallet['balance'] - $amount;
     $stmt = $pdo->prepare("UPDATE wallets SET balance = :newBalance WHERE user_id = :userID");
     $stmt->bindParam(':newBalance', $newBalance);
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
 
     // Create a transaction record 
-    $stmt = $pdo->prepare("INSERT INTO transactions (user_id, type, amount, status) VALUES (:userID, 'deposit', :amount, 'completed')");
+    $stmt = $pdo->prepare("INSERT INTO transactions (user_id, type, amount, status) VALUES (:userID, 'withdrawal', :amount, 'completed')");
     $stmt->bindParam(':userID', $userID);
     $stmt->bindParam(':amount', $amount);
     $stmt->execute();
+    echo json_encode(['status' => 'success', 'message' => 'Withdraw successful', 'balance' => $newBalance]);
+    exit();
 
-    echo json_encode(['status' => 'success', 'message' => 'Deposit successful', 'new_balance' => $newBalance]);
-    exit();
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'Invalid request method']);
-    exit();
 }
-?>
