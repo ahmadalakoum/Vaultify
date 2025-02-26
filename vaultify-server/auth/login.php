@@ -50,6 +50,7 @@ echo json_encode([
         'id' => $user['id'],
         'email' => $user['email'],
         'phone' => $user['phone'],
+        'address' => $user['address'],
         'role' => $user['role']
     ]
 ]);
