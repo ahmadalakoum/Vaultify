@@ -1,6 +1,12 @@
 <?php
-require_once "../db_connection/connection.php";
 session_start();
+require_once "../db_connection/connection.php";
+// Check if user is logged in
+if (!isset($_SESSION['userID'])) {
+    echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
+    exit();
+}
+
 $userID = $_SESSION['userID'];
 
 // check if the user has a wallet
