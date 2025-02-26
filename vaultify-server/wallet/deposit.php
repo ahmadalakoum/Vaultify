@@ -7,6 +7,11 @@ require_once "../db_connection/connection.php";
 
 // Check if the user is logged in and if the deposit amount is provided
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if user is logged in
+    if (!isset($_SESSION['userID'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
+        exit();
+    }
     // Get user ID from session (if user is logged in)
     $userID = $_SESSION['userID'];
 
