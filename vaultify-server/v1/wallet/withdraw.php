@@ -14,12 +14,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     // Get user ID from session (if user is logged in)
     $userID = $_SESSION['userID'];
+    //check if the user is verified or not 
+    $stmt = $pdo->prepare("SELECT verification_status,daily_limit FROM users WHERE id = :userID");
+    $stmt->bindParam(':userID', $userID);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $daily_limit = $user['daily_limit'];
+
 
     // Get POST data (Deposit Amount)
     $data = json_decode(file_get_contents("php://input"), true);
 
     if (empty($data) || empty($data['amount']) || empty($data['wallet_id'])) {
         echo json_encode(['status' => 'error', 'message' => 'Wallet id and Amount are required']);
+        exit();
+    }
+    $amount = floatval($data['amount']);
+    $stmt = $pdo->prepare("SELECT SUM(amount) as total_today FROM transactions WHERE user_id = :userID AND type = 'withdrawal' AND DATE(timestamp) = CURDATE()");
+    $stmt->bindParam(':userID', $userID);
+    $stmt->execute();
+    $withdrawToday = $stmt->fetch(PDO::FETCH_ASSOC)['total_today'] ?? 0;
+
+    if (($withdrawToday + $amount) > $daily_limit) {
+        echo json_encode(['status' => 'error', 'message' => 'Daily deposit limit exceeded. You have already withdraw ' . $withdrawToday . ' USD today.']);
         exit();
     }
     $walletID = intval($data['wallet_id']);
