@@ -2,6 +2,11 @@
 session_start();
 // Require DB connection
 require_once "../db_connection/connection.php";
+// Check if user is logged in
+if (!isset($_SESSION['userID'])) {
+    echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
+    exit();
+}
 //get the user id from the session
 $userID = $_SESSION['userID'];
 
