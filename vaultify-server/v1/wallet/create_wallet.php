@@ -8,23 +8,26 @@ if (!isset($_SESSION['userID'])) {
 }
 
 $userID = $_SESSION['userID'];
+$data = json_decode(file_get_contents("php://input"), true);
 
-// check if the user has a wallet
-
-$stmt = $pdo->prepare("SELECT * FROM wallets WHERE user_id = :userID");
-$stmt->execute(['userID' => $userID]);
-$wallet = $stmt->fetch(PDO::FETCH_ASSOC);
-
-if (!$wallet) {
-    //create a new wallet for the user
-    $stmt = $pdo->prepare("INSERT INTO wallets (user_id,balance) VALUES (:userID,0.00)");
-    $stmt->bindParam(':userID', $userID);
-    if ($stmt->execute()) {
-        echo json_encode(['status' => 'success', 'message' => 'Wallet created successfully']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'Failed to create wallet']);
-    }
+if (empty($data['wallet_name'])) {
+    echo json_encode(['status' => 'error', 'message' => 'Wallet name is required']);
     exit();
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'user already have a wallet']);
 }
+$walletName = $data['wallet_name'];
+$currency = !empty($data['currency']) ? strtoupper($data['currency']) : 'USD';
+// Check if a wallet with the same name already exists for the user
+$stmt = $pdo->prepare("SELECT * FROM wallets WHERE user_id = :userID AND wallet_name = :walletName");
+$stmt->execute(['userID' => $userID, 'walletName' => $walletName]);
+$existingWallet = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if ($existingWallet) {
+    echo json_encode(['status' => 'error', 'message' => 'Wallet with this name already exists']);
+    exit();
+}
+// Create a new wallet
+$stmt = $pdo->prepare("INSERT INTO wallets (user_id, wallet_name, balance,currency) VALUES (:userID, :walletName, 0.00,:currency)");
+$stmt->execute(['userID' => $userID, 'walletName' => $walletName, 'currency' => $currency]);
+
+echo json_encode(['status' => 'success', 'message' => 'Wallet created successfully']);
+exit();
