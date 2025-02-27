@@ -9,9 +9,19 @@ if (!isset($_SESSION['userID'])) {
 }
 
 $userID = $_SESSION['userID'];
-// get the balance from user's wallet
-$stmt = $pdo->prepare("SELECT * FROM wallets WHERE user_id = :userID");
+$data = json_decode(file_get_contents("php://input"), true);
 
+if (empty($data['wallet_id'])) {
+    echo json_encode(['status' => 'error', 'message' => 'Wallet ID is required']);
+    exit();
+}
+
+$walletID = $data['wallet_id'];
+
+// get the balance from user's wallet
+$stmt = $pdo->prepare("SELECT * FROM wallets WHERE user_id = :userID AND id=:walletID");
+
+$stmt->bindParam(':walletID', $walletID);
 $stmt->bindParam(':userID', $userID);
 
 $stmt->execute();
