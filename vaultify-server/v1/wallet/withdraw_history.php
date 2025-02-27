@@ -12,6 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
         echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
         exit();
     }
+    $data = json_decode(file_get_contents("php://input"), true);
+    if (empty($data['wallet_id'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Wallet ID is required']);
+        exit();
+    }
+    $walletID = $data['wallet_id'];
 
     // Get user ID from session 
     $userID = $_SESSION['userID'];
