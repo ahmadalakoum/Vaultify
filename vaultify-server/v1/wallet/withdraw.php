@@ -18,10 +18,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get POST data (Deposit Amount)
     $data = json_decode(file_get_contents("php://input"), true);
 
-    if (empty($data) || empty($data['amount'])) {
-        echo json_encode(['status' => 'error', 'message' => 'Amount is required']);
+    if (empty($data) || empty($data['amount']) || empty($data['wallet_id'])) {
+        echo json_encode(['status' => 'error', 'message' => 'Wallet id and Amount are required']);
         exit();
     }
+    $walletID = intval($data['wallet_id']);
     $amount = floatval($data['amount']);
     // Ensure the amount is positive
     if ($amount <= 0) {
@@ -29,7 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
     // Check if the user has a wallet
-    $stmt = $pdo->prepare("SELECT * FROM wallets WHERE user_id = :userID");
+    $stmt = $pdo->prepare("SELECT * FROM wallets WHERE user_id = :userID AND id=:walletID");
+    $stmt->bindParam(':walletID', $walletID);
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
     $wallet = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -45,14 +47,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     // Update the wallet balance
     $newBalance = $wallet['balance'] - $amount;
-    $stmt = $pdo->prepare("UPDATE wallets SET balance = :newBalance WHERE user_id = :userID");
+    $stmt = $pdo->prepare("UPDATE wallets SET balance = :newBalance WHERE user_id = :userID AND id=:walletID");
     $stmt->bindParam(':newBalance', $newBalance);
+    $stmt->bindParam(':walletID', $walletID);
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
 
     // Create a transaction record 
-    $stmt = $pdo->prepare("INSERT INTO transactions (user_id, type, amount, status) VALUES (:userID, 'withdrawal', :amount, 'completed')");
+    $stmt = $pdo->prepare("INSERT INTO transactions (user_id,wallet_id, type, amount, status) VALUES (:userID,:walletID, 'withdrawal', :amount, 'completed')");
     $stmt->bindParam(':userID', $userID);
+    $stmt->bindParam(':walletID', $walletID);
     $stmt->bindParam(':amount', $amount);
     $stmt->execute();
     echo json_encode(['status' => 'success', 'message' => 'Withdraw successful', 'balance' => $newBalance]);
