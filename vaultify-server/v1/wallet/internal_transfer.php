@@ -67,5 +67,18 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     $stmt->bindParam(':amount', $amount);
     $stmt->bindParam(':receiverWalletID', $receiverWalletID);
     $stmt->execute();
+
+    // Create a transaction record for sender 
+    $stmt = $pdo->prepare("INSERT INTO transactions (user_id,wallet_id, type, amount, status) VALUES (:userID,:walletID, 'transfer', :amount, 'completed')");
+    $stmt->bindParam(':userID', $userID);
+    $stmt->bindParam(':amount', $amount);
+    $stmt->bindParam(':walletID', $senderWalletID);
+    $stmt->execute();
+    // Create a transaction record for receiver
+    $stmt = $pdo->prepare("INSERT INTO transactions (user_id, wallet_id, type, amount, status) VALUES (:userID,:walletID, 'transfer', :amount, 'completed')");
+    $stmt->bindParam(':userID', $receiverID);
+    $stmt->bindParam(':amount', $amount);
+    $stmt->bindParam(':walletID', $receiverWalletID);
+    $stmt->execute();
     echo json_encode(['status' => 'success', 'message' => 'Transfer successful']);
 }
