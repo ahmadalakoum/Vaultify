@@ -23,7 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $userID = $_SESSION['userID'];
 
     // Fetch transactions for the logged-in user
-    $stmt = $pdo->prepare("SELECT type, amount, status, timestamp FROM transactions WHERE user_id = :userID and type='withdrawal'");
+    $stmt = $pdo->prepare("SELECT type, amount, status, timestamp FROM transactions WHERE user_id = :userID and type='withdrawal' and wallet_id=:walletID");
+    $stmt->bindParam(':walletID', $walletID);
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
     $deposits = $stmt->fetchAll(PDO::FETCH_ASSOC);
