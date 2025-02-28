@@ -12,7 +12,7 @@ $userID = $_SESSION['userID'];
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     //fetch the user details
-    $stmt = $pdo->prepare("SELECT email,phone,address,verification_status FROM users WHERE id=:userID");
+    $stmt = $pdo->prepare("SELECT email,phone,address,verification_status,daily_limit FROM users WHERE id=:userID");
     $stmt->bindParam(':userID', $userID);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
