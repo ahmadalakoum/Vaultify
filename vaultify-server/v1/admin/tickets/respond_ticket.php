@@ -1,4 +1,5 @@
 <?php
+require "../../cors.php";
 session_start();
 require_once "../../db_connection/connection.php";
 
