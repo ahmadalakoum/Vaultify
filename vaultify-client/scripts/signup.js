@@ -1,3 +1,4 @@
+import config from "./config";
 document.getElementById("signupForm").addEventListener("submit",async (e)=>{
     e.preventDefault();
     const email = document.getElementById("email").value.trim();
@@ -13,8 +14,9 @@ document.getElementById("signupForm").addEventListener("submit",async (e)=>{
         message.textContent = "Passwords do not match";
         return;
     }
+    const signupURL=`${config.apiBaseUrl}/auth/signup.php`;
 
-    const response = await fetch("http://localhost/Vaultify/vaultify-server/v1/auth/signup.php",{
+    const response = await fetch(signupURL,{
         method:"POST",
         headers:{
             "Content-Type":"application/json",
