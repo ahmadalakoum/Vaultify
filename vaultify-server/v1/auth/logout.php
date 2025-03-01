@@ -1,5 +1,6 @@
 <?php
-
+// require cors
+require '../cors.php';
 //logout the user
 session_start();
 session_destroy();
