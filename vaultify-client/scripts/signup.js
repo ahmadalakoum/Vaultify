@@ -1,4 +1,4 @@
-import config from "./config";
+
 document.getElementById("signupForm").addEventListener("submit",async (e)=>{
     e.preventDefault();
     const email = document.getElementById("email").value.trim();
@@ -9,6 +9,10 @@ document.getElementById("signupForm").addEventListener("submit",async (e)=>{
     const message = document.getElementById("message");
 
     message.textContent='';
+    if(!email || !phone || !address || !password || !confirmPassword){
+        message.textContent = "All fields are required";
+        return;
+    }
     //check if passwords match
     if(password !== confirmPassword) {
         message.textContent = "Passwords do not match";
@@ -25,7 +29,6 @@ document.getElementById("signupForm").addEventListener("submit",async (e)=>{
 
     });
     const result = await response.json();
-    console.log(result);
     if(response.ok){
         message.style.color = "green";
         message.textContent = result.message;
