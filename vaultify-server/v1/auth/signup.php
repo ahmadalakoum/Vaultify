@@ -14,6 +14,7 @@ if (!$data) {
 }
 
 // Extract data from JSON
+$username = trim($data['username']);
 $email = trim($data['email']);
 $phone = trim($data['phone']);
 $password = trim($data['password']);
@@ -21,7 +22,7 @@ $address = trim($data['address']);
 $confirmPassword = trim($data['confirmPassword']);
 
 // Check for empty fields
-if (empty($email) || empty($phone) || empty($password) || empty($address) || empty($confirmPassword)) {
+if (empty($username) || empty($email) || empty($phone) || empty($password) || empty($address) || empty($confirmPassword)) {
     echo json_encode(['status' => 'error', 'message' => 'Please enter all required fields']);
     exit();
 }
@@ -47,7 +48,8 @@ if ($password !== $confirmPassword) {
 $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
 // Insert user into DB
-$stmt = $pdo->prepare("INSERT INTO users (email, phone, password,address) VALUES (:email, :phone, :password,:address)");
+$stmt = $pdo->prepare("INSERT INTO users (username,email, phone, password,address) VALUES (:username,:email, :phone, :password,:address)");
+$stmt->bindParam(':username', $username);
 $stmt->bindParam(':email', $email);
 $stmt->bindParam(':phone', $phone);
 $stmt->bindParam(':password', $hashedPassword);
