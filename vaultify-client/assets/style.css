@@ -1,0 +1,34 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.flex{
+    display:flex;
+}
+.column{
+    flex-direction:column;
+}
+.center{
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary{
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-secondary{
+    padding: 10px;
+    background: #b51212;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
