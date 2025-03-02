@@ -25,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Get POST data (Deposit Amount)
     $data = json_decode(file_get_contents("php://input"), true);
 
-    if (empty($data) || empty($data['amount']) || empty($data['wallet_id'])) {
+    if (empty($data) || empty($data['amount'])) {
         echo json_encode(['status' => 'error', 'message' => 'Wallet id and Amount are required']);
         exit();
     }
@@ -39,8 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode(['status' => 'error', 'message' => 'Daily deposit limit exceeded. You have already withdraw ' . $withdrawToday . ' USD today.']);
         exit();
     }
-    $walletID = intval($data['wallet_id']);
-    $amount = floatval($data['amount']);
+    $walletID = intval($_GET['wallet_id']);
     // Ensure the amount is positive
     if ($amount <= 0) {
         echo json_encode(['status' => 'error', 'message' => 'Deposit amount must be greater than 0']);
