@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Get the wallet_id from the URL
-    if (empty($_GET['wallet_id'])) {
+    if (!isset($_GET['wallet_id'])) {
         echo json_encode(['status' => 'error', 'message' => 'Wallet ID is required in the URL']);
         exit();
     }
