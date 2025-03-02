@@ -8,7 +8,7 @@ require "../bearer.php";
 //get the user id from the session
 $userID = getBearerToken();
 
-$stmt = $pdo->prepare("SELECT wallet_name , balance,currency FROM wallets WHERE user_id=:userID");
+$stmt = $pdo->prepare("SELECT id,wallet_name , balance,currency FROM wallets WHERE user_id=:userID");
 $stmt->bindParam(':userID', $userID);
 $stmt->execute();
 $wallets = $stmt->fetchAll(PDO::FETCH_ASSOC);
