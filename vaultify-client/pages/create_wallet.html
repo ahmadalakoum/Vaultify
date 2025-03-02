@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/funds.css">
+</head>
+<body>
+    <div class="wallet-container">
+        <h2>Create a Wallet</h2>
+        <form id="wallet-form" method="POST">
+            <label for="wallet-name">Wallet Name:</label>
+            <input type="text" id="wallet-name" name="wallet-name" required>
+            
+            <label for="currency">Currency:</label>
+            <select id="currency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="LBP">LBP</option>
+            </select>
+
+            <button type="submit">Create Wallet</button>
+        </form>
+        
+        <div id="wallet-message"></div>
+    </div>
+    <script src="../scripts/config.js"></script>
+    <script src="../scripts/wallet.js"></script>
+</body>
+</html>

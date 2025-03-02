@@ -1,15 +1,16 @@
 
 document.getElementById("signupForm").addEventListener("submit",async (e)=>{
     e.preventDefault();
+    const username = document.getElementById("username").value.trim();
     const email = document.getElementById("email").value.trim();
     const phone = document.getElementById("phone").value.trim();
     const address = document.getElementById("address").value.trim();
     const password = document.getElementById("password").value.trim();
     const confirmPassword = document.getElementById("confirmPassword").value.trim();
     const message = document.getElementById("message");
-
+console.log(username,email,phone,address,password,confirmPassword);
     message.textContent='';
-    if(!email || !phone || !address || !password || !confirmPassword){
+    if(!username || !email || !phone || !address || !password || !confirmPassword){
         message.textContent = "All fields are required";
         return;
     }
@@ -25,7 +26,7 @@ document.getElementById("signupForm").addEventListener("submit",async (e)=>{
         headers:{
             "Content-Type":"application/json",
         },
-        body:JSON.stringify({email,phone,address,password,confirmPassword})
+        body:JSON.stringify({username,email,phone,address,password,confirmPassword})
 
     });
     const result = await response.json();

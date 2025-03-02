@@ -1,0 +1,86 @@
+/* wallets.css */
+body {
+    background-color: #141416; /* Dark background */
+    color: #ffffff;
+    height: 100vh;
+}
+
+/* Container for wallets list */
+.container {
+    border-radius: 10px;
+    padding: 30px;
+    width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+#wallets-list {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+/* Wallet card styling */
+.wallet {
+    background: #252525;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    color: #fff;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.wallet h3 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.wallet span {
+    font-size: 14px;
+    color: #aaa;
+}
+
+.wallet p {
+    font-size: 16px;
+    color: #ff8a00; /* Binance orange for balance */
+}
+
+.wallet a {
+    color: #ff8a00; /* Binance orange for links */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    margin: 5px 0;
+}
+
+.wallet a:hover {
+    background-color: rgba(255, 138, 0, 0.1);
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .wallet {
+        width: 100%;
+    }
+}

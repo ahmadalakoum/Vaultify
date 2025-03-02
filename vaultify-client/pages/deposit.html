@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit Funds</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../styles/funds.css">
+</head>
+<body>
+    <h2>Deposit</h2>
+    <form id="depositForm">
+        <label for="wallet_id">Wallet ID:</label>
+        <input type="number" id="wallet_id" required>
+        
+        <label for="amount">Amount (USD):</label>
+        <input type="number" id="amount" required>
+        
+        <button type="submit">Deposit</button>
+    </form>
+    
+    <p id="responseMessage"></p>
+
+    <script src="../scripts/config.js"></script>
+    <script src="../scripts/deposit.js"></script>
+</body>
+</html>
