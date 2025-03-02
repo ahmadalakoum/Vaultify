@@ -14,11 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     //get the user id from the session
     $userID = getBearerToken();
     $data = json_decode(file_get_contents("php://input"), true);
-    if (empty($data['wallet_id'])) {
+    if (empty($_GET['wallet_id'])) {
         echo json_encode(['status' => 'error', 'message' => 'Wallet ID is required']);
         exit();
     }
-    $walletID = $data['wallet_id'];
+    $walletID = $_GET['wallet_id'];
 
 
     // Fetch transactions for the logged-in user
