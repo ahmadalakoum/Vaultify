@@ -10,12 +10,9 @@ session_start();
 $data = json_decode(file_get_contents("php://input"), true);
 
 // Check if user is logged in
-if (!isset($_SESSION['userID'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
-    exit();
-}
-
-$user_id = $_SESSION['userID'];
+require "../bearer.php";
+//get the user id from the session
+$userID = getBearerToken();
 $currentPassword = trim($data['currentPassword']);
 $newPassword = trim($data['newPassword']);
 $confirmPassword = trim($data['confirmPassword']);

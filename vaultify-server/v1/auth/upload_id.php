@@ -6,12 +6,9 @@ require_once "../db_connection/connection.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check if user is logged in
-    if (!isset($_SESSION['userID'])) {
-        echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
-        exit();
-    }
-
-    $userID = $_SESSION['userID'];
+    require "../bearer.php";
+    //get the user id from the session
+    $userID = getBearerToken();
 
     // Check if a file was uploaded
     if (!isset($_FILES['id_document'])) {

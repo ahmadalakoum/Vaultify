@@ -5,13 +5,9 @@ session_start();
 require_once "../db_connection/connection.php";
 
 // Check if user is logged in
-if (!isset($_SESSION['userID'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
-    exit();
-}
-
-// Get user ID from session
-$userID = $_SESSION['userID'];
+require "../bearer.php";
+//get the user id from the session
+$userID = getBearerToken();
 
 // Fetch user's tickets
 $stmt = $pdo->prepare("SELECT * FROM support_tickets WHERE user_id = :userID ORDER BY created_at DESC");
