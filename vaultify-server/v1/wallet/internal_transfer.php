@@ -8,12 +8,9 @@ session_start();
 require_once "../db_connection/connection.php";
 if ($_SERVER['REQUEST_METHOD'] === "POST") {
     // Check if user is logged in
-    if (!isset($_SESSION['userID'])) {
-        echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
-        exit();
-    }
-    // Get user ID from session (if user is logged in)
-    $userID = $_SESSION['userID'];
+    require "../bearer.php";
+    //get the user id from the session
+    $userID = getBearerToken();
 
     // Get POST data (Deposit Amount)
     $data = json_decode(file_get_contents("php://input"), true);

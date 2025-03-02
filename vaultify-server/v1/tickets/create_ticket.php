@@ -5,13 +5,9 @@ session_start();
 require_once "../db_connection/connection.php";
 
 // Check if user is logged in
-if (!isset($_SESSION['userID'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
-    exit();
-}
-
-// Get user ID from session
-$userID = $_SESSION['userID'];
+require "../bearer.php";
+//get the user id from the session
+$userID = getBearerToken();
 
 // Get POST data (Ticket Subject, Description)
 $data = json_decode(file_get_contents("php://input"), true);

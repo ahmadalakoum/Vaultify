@@ -4,13 +4,11 @@ require '../cors.php';
 session_start();
 // Require DB connection
 require_once "../db_connection/connection.php";
+
 // Check if user is logged in
-if (!isset($_SESSION['userID'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
-    exit();
-}
+require "../bearer.php";
 //get the user id from the session
-$userID = $_SESSION['userID'];
+$userID = getBearerToken();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $pdo->prepare("SELECT email,phone,password,address FROM users WHERE id=:userID");
