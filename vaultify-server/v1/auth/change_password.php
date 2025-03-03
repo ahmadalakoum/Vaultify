@@ -47,7 +47,7 @@ $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
 // Update the password
 $stmt = $pdo->prepare("UPDATE users SET password = :password WHERE id = :user_id");
 $stmt->bindParam(':password', $hashedPassword);
-$stmt->bindParam(':user_id', $user_id);
+$stmt->bindParam(':user_id', $userID);
 $stmt->execute();
 
 echo json_encode(['status' => 'success', 'message' => 'Password changed successfully']);
