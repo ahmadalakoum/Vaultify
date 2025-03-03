@@ -31,7 +31,7 @@ if ($newPassword !== $confirmPassword) {
 
 // Get the current password from the database
 $stmt = $pdo->prepare("SELECT password FROM users WHERE id = :user_id");
-$stmt->bindParam(':user_id', $user_id);
+$stmt->bindParam(':user_id', $userID);
 $stmt->execute();
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
