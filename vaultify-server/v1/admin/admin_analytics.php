@@ -6,11 +6,15 @@ session_start();
 // Require database connection
 require_once "../db_connection/connection.php";
 
+require "../bearer.php";
+//get the user id from the session
+$userID = getBearerToken();
 // Check if the user is logged in and is an admin
-if (!isset($_SESSION['userID']) || $_SESSION['role'] !== 'admin') {
+if (!isset($userID)) {
     echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
     exit();
 }
+
 
 // Fetch total users & new users this month
 $stmt = $pdo->query("SELECT COUNT(*) as total_users FROM users");
