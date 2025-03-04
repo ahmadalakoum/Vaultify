@@ -9,11 +9,30 @@
     <link rel="stylesheet" href="../styles/wallets.css">
 </head>
 <body>
+    <header>
+        <nav class="flex">
+            <div class="logo-container">
+                <h1>Vaultify</h1>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+            <!-- User Profile Section -->
+            <div class="user-profile" id="user-profile">
+                <span class="username" id="username">Username</span>  <!-- Placeholder for username -->
+                <button class="logout-btn" id="logout-btn" style="display:none;">Logout</button>
+            </div>
+        </nav>
+    </header>
     <div class="container">
         <h2>My Wallets</h2>
         <div id="wallets-list"></div>
     </div>
-
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2025 Vaultify. All rights reserved.</p>
+        </footer>
+        <script src="../scripts/index.js"></script> 
     <script src="../scripts/config.js"></script>
     <script src="../scripts/view_wallets.js"></script>
 </body>
