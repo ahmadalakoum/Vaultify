@@ -1,6 +1,8 @@
 document.getElementById("withdrawForm").addEventListener("submit",async (e)=>{
     e.preventDefault();
-    const walletID = document.getElementById("wallet_id").value.trim();
+    const urlParams = new URLSearchParams(window.location.search);
+    // Get the wallet_id from the query string
+    const walletID = urlParams.get('wallet_id');
     const amount = document.getElementById("amount").value.trim();
     const message = document.getElementById("responseMessage");
     message.textContent = '';
@@ -8,14 +10,14 @@ document.getElementById("withdrawForm").addEventListener("submit",async (e)=>{
         message.textContent = "All fields are required";
         return;
     }
-    const withdrawURL=`${config.apiBaseUrl}/wallet/withdraw.php`;
+    const withdrawURL=`${config.apiBaseUrl}/wallet/withdraw.php?wallet_id=${walletID}`;
     const response = await fetch(withdrawURL,{
         method:"POST",
         headers:{
             "Content-Type":"application/json",
             "Authorization": `Bearer ${localStorage.getItem("userID")}}`
         },
-        body:JSON.stringify({wallet_id:walletID, amount})
+        body:JSON.stringify({amount})
     });
     const result = await response.json();
     if(response.ok){

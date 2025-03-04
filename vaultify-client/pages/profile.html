@@ -4,37 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../styles/main.css">
     <link rel="stylesheet" href="../styles/profile.css">
-
 </head>
 <body>
-    <div class="profile-container">
-        <h1>User Profile</h1>
-        <div class="profile-card">
-            <div>
-                <label for="email">Email:</label>
-                <p id="email"></p>
+    <header>
+        <nav class="flex">
+            <div class="logo-container">
+                <h1>Vaultify</h1>
             </div>
-            <div>
-                <label for="phone">Phone:</label>
-                <p id="phone"></p>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+            <!-- User Profile Section -->
+            <div class="user-profile" id="user-profile">
+                <span class="username" id="username">Username</span>  <!-- Placeholder for username -->
+                <button class="logout-btn" id="logout-btn" style="display:none;">Logout</button>
             </div>
-            <div>
-                <label for="address">Address:</label>
-                <p id="address"></p>
-            </div>
-            <div>
-                <label for="status">Status:</label>
-                <p id="status"></p>
-            </div>
-            <div>
-                <label for="daily_limit">Daily Limit</label>
-                <p id="daily_limit"></p>
+        </nav>
+    </header>
+
+    <div class="flex center">
+        <div class="profile-container">
+            <h1>User Profile</h1>
+            <div class="profile-card">
+                <div>
+                    <label for="email">Email:</label>
+                    <p id="email"></p>
+                </div>
+                <div>
+                    <label for="phone">Phone:</label>
+                    <p id="phone"></p>
+                </div>
+                <div>
+                    <label for="address">Address:</label>
+                    <p id="address"></p>
+                </div>
+                <div>
+                    <label for="status">Status:</label>
+                    <p id="status"></p>
+                </div>
+                <div>
+                    <label for="daily_limit">Daily Limit:</label>
+                    <p id="daily_limit"></p>
+                </div>
             </div>
 
+            <!-- Buttons for Change Password and Update Profile -->
+            <div class="profile-actions">
+                <a href="change-password.html" class="btn">Change Password</a>
+                <a href="update-profile.html" class="btn">Update Profile</a>
+            </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Vaultify. All rights reserved.</p>
+    </footer>
+
+    <script src="../scripts/index.js"></script> 
     <script src="../scripts/config.js"></script>
     <script src="../scripts/profile.js"></script>
 </body>

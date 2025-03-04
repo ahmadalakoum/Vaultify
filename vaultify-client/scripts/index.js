@@ -2,23 +2,25 @@ function updateNavbar() {
     const navLinks = document.getElementById("nav-links");
     const userProfile = document.getElementById("user-profile");
     const usernameElement = document.getElementById("username");
-    const profileIcon = document.getElementById("profile-icon");
     const logoutBtn = document.getElementById("logout-btn");
 
     // Check if user is logged in by checking localStorage for userID
     const userID = localStorage.getItem("userID");
     const username = localStorage.getItem("username");
+    console.log(userID, username);
+
+    const joinBtn=document.getElementById("join");
 
     if (userID) {
+
         // User is logged in, display profile and logout button
         usernameElement.textContent = username;
         userProfile.style.display = "flex";
         navLinks.innerHTML = `
-            <li><a href="index.html">Home</a></li>
-            <li><a href="./pages/about.html">About</a></li>
-            <li><a href="./pages/create_wallet.html">New wallet</a></li>
-            <li><a href="./pages/view_wallets.html">View wallets</a></li>
-            <li><a href="./pages/profile.html">Profile</a></li>
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="/pages/create_wallet.html">New wallet</a></li>
+            <li><a href="/pages/view_wallets.html">View wallets</a></li>
+            <li><a href="/pages/profile.html">Profile</a></li>
 
         `;
         logoutBtn.style.display = "block";
@@ -34,7 +36,6 @@ function updateNavbar() {
         userProfile.style.display = "none";
         navLinks.innerHTML = `
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
             <li><a href="./pages/signup.html">Sign Up</a></li>
             <li><a href="./pages/login.html">Login</a></li>
         `;
