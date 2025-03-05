@@ -4,7 +4,7 @@ session_start();
 require_once "../../db_connection/connection.php";
 
 // Check if admin is logged in
-if (!isset($_SESSION['userID']) || $_SESSION['role'] !== 'admin') {
+if (!isset($userID)) {
     echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
     exit();
 }
