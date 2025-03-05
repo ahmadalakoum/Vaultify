@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../styles/">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <div class="stats">
+            <div class="card">
+                <h2>Total Users</h2>
+                <p id="totalUsers">Loading...</p>
+            </div>
+            <div class="card">
+                <h2>New Users (This Month)</h2>
+                <p id="newUsers">Loading...</p>
+            </div>
+            <div class="card">
+                <h2>Total Transactions</h2>
+                <p id="totalTransactions">Loading...</p>
+            </div>
+        </div>
+
+        <h2>Transactions by Currency</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Total Deposits</th>
+                    <th>Total Withdrawals</th>
+                    <th>Total Transfers</th>
+                </tr>
+            </thead>
+            <tbody id="transactionsTable">
+                <tr><td colspan="4">Loading...</td></tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="../scripts/config.js"></script>
+    <script src="../scripts/admin-dashboard.js"></script>
+</body>
+</html>
