@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Tickets</title>
+</head>
+<body>
+    <header>
+        <nav class="flex">
+            <div class="logo-container">
+                <h1>Vaultify</h1>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+            </ul>
+            <!-- User Profile Section -->
+            <div class="user-profile" id="user-profile">
+                <span class="username" id="username">Username</span>  <!-- Placeholder for username -->
+                <button class="logout-btn" id="logout-btn" style="display:none;">Logout</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <h2>User Support Tickets</h2>
+        <table id="tickets-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Subject</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="tickets-body">
+                <tr><td colspan="6">Loading...</td></tr>
+            </tbody>
+        </table>
+    </main>
+
+    <script src="../scripts/config.js"></script>
+    <script src="../scripts/index.js"></script>
+    <script src="../scripts/admin_tickets.js"></script>
+
+</body>
+</html>
