@@ -31,7 +31,7 @@ console.log(username,email,phone,address,password,confirmPassword);
     });
     const result = await response.json();
     if(response.ok){
-        if(result.message == "success"){
+        if(result.status == "success"){
         message.style.color = "green";
         message.textContent = result.message;
         setTimeout(() => {

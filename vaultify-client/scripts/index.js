@@ -29,7 +29,7 @@ function updateNavbar() {
         logoutBtn.onclick = () => {
             localStorage.removeItem("userID");
             localStorage.removeItem("username");
-            window.location.href = "./pages/login.html"; // Redirect to login page
+            window.location.href = window.location.origin + "/pages/login.html"; // Redirect to login page
         };
     } else {
         // User is not logged in, show sign up/login links
