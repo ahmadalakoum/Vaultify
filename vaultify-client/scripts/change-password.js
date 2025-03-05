@@ -26,14 +26,15 @@ document.getElementById("change-password-form").addEventListener("submit",async 
     })
     const result = await response.json();
     if(response.ok){
-        message.style.color = "green";
-        message.textContent = result.message;
         if(result.message === "success"){
+            message.style.color = "green";
+            message.textContent = result.message;
             setTimeout(()=>{
                 window.location.href = "login.html";
             },2000);
         }
         else{
+            message.style.color = "red";
             message.textContent = result.message;
         }
     }

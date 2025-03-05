@@ -26,6 +26,9 @@ document.getElementById("transferForm").addEventListener("submit",async (e)=>{
     })
     const result = await response.json();
     if(response.ok){
+        if(result.status === "success"){
+
+        
         msg.style.color="green";
         msg.textContent=result.message;
         setTimeout(()=>{
@@ -34,5 +37,7 @@ document.getElementById("transferForm").addEventListener("submit",async (e)=>{
     }else{
         msg.style.color="red";
         msg.textContent=result.message;
+        document.getElementById("depositForm").reset();
+    }
     }
 })
