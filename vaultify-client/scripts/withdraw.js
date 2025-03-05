@@ -21,15 +21,16 @@ document.getElementById("withdrawForm").addEventListener("submit",async (e)=>{
     });
     const result = await response.json();
     if(response.ok){
+        if(result.status === "success"){
         message.style.color = "green";
         message.textContent = result.message;
         setTimeout(()=>{
             window.location.href="./view_wallets.html";
         },2000);
-        
     }else{
         message.style.color = "red";
         message.textContent = result.message;
         document.getElementById("depositForm").reset();
+    }   
     }
 })

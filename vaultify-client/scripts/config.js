@@ -1,3 +1,3 @@
-const config={
-    apiBaseUrl: "http://localhost/Vaultify/vaultify-server/v1"
+const config = {
+    apiBaseUrl: "https://alakoumahmad.zapto.org/Vaultify/vaultify-server/v1"
 };

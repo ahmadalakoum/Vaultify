@@ -25,13 +25,15 @@ document.getElementById("updateProfileForm").addEventListener("submit",async (e)
     });
     const result = await response.json();
     if(response.ok){
+        if(result.status === "success"){
         message.textContent = result.message;
         message.style.color = "green";
         setTimeout(()=>{
             window.location.href="./profile.html";
         },2000);
-    } else{
+    }else{
         message.textContent = result.message;
         message.style.color = "red";
     }
+    } 
 })
